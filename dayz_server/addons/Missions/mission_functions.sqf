@@ -216,7 +216,7 @@ mission_spawn_ai = {
 	
 	_trigger = createTrigger ["EmptyDetector", _position];
 	_trigger setTriggerArea [_range, _range, 0, false];
-	_trigger setVariable ["respawn", false]
+	_trigger setVariable ["respawn", false];
     missionNamespace setVariable [_marker_name, _trigger];  
 	
 	_group = [_num_of_ai, "", _range, _trigger, _weapongrade, ""] call fnc_spawnBandits_custom;
