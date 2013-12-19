@@ -86,6 +86,8 @@ mission_spawn_crash = {
 
 	_timeout = time + mission_despawn_timer_min;
     _spawn_ammo = true;
+	_isNear = false;
+	_heli_reinforcements = false;
 	waitUntil{
 		sleep 15;
 		if ((_spawn_ammo) || (_heli_reinforcements) || (_paradrop)) then {
