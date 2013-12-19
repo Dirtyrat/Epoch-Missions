@@ -58,7 +58,9 @@ dayz_spaceInterrupt =			compile preprocessFileLineNumbers "\z\addons\dayz_code\a
 Change it to
 
 ```
-dayz_spaceInterrupt =			compile preprocessFileLineNumbers "extras\debug_monitor\dayz_spaceInterrupt.sqf";
+// Missions
+dayz_spaceInterrupt = compile preprocessFileLineNumbers "fixes\actions\dayz_spaceInterrupt.sqf";
+execVM "addons\Missions\init.sqf";
 ```
 =============
 Or edit your mpmission/init.sqf
