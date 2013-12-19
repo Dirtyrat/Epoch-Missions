@@ -1,3 +1,69 @@
+mission_heli_call = {
+	_wpSelect 			= _this select 0;
+	_heli 				= (_this select 0) select 0;
+	_unitGroup 			= (_this select 0) select 1;
+	
+	// Code From DZAI DZAI_heliRandomPatrol
+	_wpSelect = [_wpSelect,50+(random 300),(random 360),true] call SHK_pos;
+	[_unitGroup,0] setWPPos _wpSelect; 
+	[_unitGroup,1] setWPPos _wpSelect;
+	if ((waypointType [_unitGroup,1]) == "MOVE") then {
+		if ((random 1) < 0.275) then {
+			[_unitGroup,1] setWaypointType "SAD";
+			[_unitGroup,1] setWaypointTimeout [20,25,30];
+			_unitGroup setVariable ["DetectPlayersWide",true];
+		};
+	} else {
+		[_unitGroup,1] setWaypointType "MOVE";
+		[_unitGroup,1] setWaypointTimeout [3,6,9];
+	};
+	//[_unitGroup,0] setWaypointCompletionRadius 150;
+	_unitGroup setCurrentWaypoint [_unitGroup,0];
+	(vehicle (leader _unitGroup)) flyInHeight (100 + (random 40));
+};
+
+
+mission_heli_array_clean = {
+	// Remove Dead Helis from Array
+	while {true} do {
+		_x = 0;
+		_last_index = count(mission_dzai_heli_array);
+		while {(_x < _last_index)} do {
+			if (!alive((mission_dzai_heli_array select _x) select 0)) then {
+				mission_dzai_heli_array set [_x, "Delete Me"];
+				mission_dzai_heli_array = mission_dzai_heli_array - ["Delete Me"];
+				_last_index = _last_index - 1;
+			} else {
+				_x = _x + 1;
+			};
+		};
+		sleep 1800;
+	};
+};
+
+
+mission_heli_call_check = {
+	_pos = _this select 0;
+	_x = 0;
+	_last_index = count(mission_dzai_heli_array);
+	
+	while {(_x < _last_index)} do {
+		if (alive((mission_dzai_heli_array select _x) select 0)) then {
+			// Check Last Time Heli Was Called <= 15 mins
+			_last_time_call = (mission_dzai_heli_array select _x) select 2;
+			if ((_last_time_call + 900) <= time) then {
+				// Call Heli + Update Last Called Time
+				_array = mission_dzai_heli_array select _x;
+				[_pos, _array] call mission_heli_call_check;
+				//(mission_dzai_heli_array select _x) select 2 = time;
+				mission_dzai_heli_array set [_x, [_array select 0, _array select 1, time]];
+				_x = _last_index;
+			};
+		};
+		_x = _x + 1;
+	};
+};
+
 mission_add_hunter = {
 
 	//RYD_Hunter_FSM_handle = [hunter1,mission_hunter_smell,mission_hunter_eyes,(units (group hunted1)),200,1] execFSM "\z\addons\dayz_server\addons\Missions\ai\RYD_Hunter\RYD_Hunter.fsm";

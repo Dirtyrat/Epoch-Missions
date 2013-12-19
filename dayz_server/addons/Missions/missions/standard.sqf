@@ -10,6 +10,7 @@ mission_spawn_standard = {
 	_vehicle = 0;
 	_vehicle_spawn = false;
 	_paradrop = false;
+	_heli_reinforcements = false;
 	_max_crates = objNull;
 	
 	switch (_mission_type) do
@@ -148,6 +149,7 @@ mission_spawn_standard = {
 			_group_3_info = [(_mission_id + "-AIGroup3"), "AI", _position, 200, 4, 1] call mission_spawn_ai;
 			_group_3 = _group_3_info select 1;
 			_paradrop = true;
+			_heli_reinforcements = true;
         };
     };
 
@@ -163,27 +165,32 @@ mission_spawn_standard = {
 	publicVariable "customMissionWarning";
 
 	// Wait till all AI Dead or Mission Times Out
-
+//if (_heli_reinforcements) then {
 	_timeout = time + mission_despawn_timer_min;
 	_spawn_ammo = true;
+	_isNear = false;
+	_heli_reinforcements = true;
 	waitUntil{
 		sleep 15;
-		/*
-		if (_paradrop) then {
-			_isNear = [_crate_position, 100] call mission_nearbyPlayers;
+		if ((_spawn_ammo) || (_heli_reinforcements) || (_paradrop)) then {
+			_isNear = [_position, 100] call mission_nearbyPlayers;
 			if (_isNear) then {
-				// Paradrop
-				_group_4_info = [(_mission_id + "-AIGroup4"), "AI_LAND", _position, 300, 6, -1] call mission_spawn_ai;
-				_paradrop = false;
+				if (_spawn_ammo) then {
+					{
+						[_x, "Random"] execVM "\z\addons\dayz_server\addons\missions\misc\fillBoxes.sqf";
+						sleep 1;
+					} forEach _crates;
+					_spawn_ammo = false;
+				};
+				if (_paradrop) then {
+					//_group_4_info = [(_mission_id + "-AIGroup4"), "AI_LAND", _position, 300, 6, -1] call mission_spawn_ai;
+					_paradrop = false;
+				};
+				if (_heli_reinforcements) then {
+					[_position] call mission_heli_call_check;
+					_heli_reinforcements = false;
+				};
 			};
-		};
-		*/
-		if (_spawn_ammo) then {
-			{
-				[_x, "Random"] execVM "\z\addons\dayz_server\addons\missions\misc\fillBoxes.sqf";
-				sleep 1;
-			} forEach _crates;
-			_spawn_ammo = false;
 		};
 		if ((count units _group_1 == 0) && (count units _group_2 == 0) && (count units _group_3 == 0)) exitWith {true};
 		if (time > _timeout) exitWith {true};
@@ -197,7 +204,7 @@ mission_spawn_standard = {
 	_timeout2 = _timeout + ((mission_despawn_timer_max - mission_despawn_timer_min)/2);
 	while {_isNear} do
 	{
-		_isNear = [_crate_position, 500] call mission_nearbyPlayers;
+		_isNear = [_position, 500] call mission_nearbyPlayers;
 		if ((!_isNear) && (time > _timeout)) then {
 			_isNear = false;
 		};

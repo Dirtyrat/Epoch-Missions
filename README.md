@@ -81,6 +81,24 @@ PVDZE_plr_Login = nil;
 PVDZE_plr_Login2 = nil;
 ```
 
+<h6>Step 4</h6>
+
+=============
+Edit dayz_server\DZAI\spawn_functions\spawn_heliPatrol.sqf
+
+Look for 
+
+```
+DZAI_curHeliPatrols = DZAI_curHeliPatrols + 1;
+```
+
+Change to 
+
+```
+DZAI_curHeliPatrols = DZAI_curHeliPatrols + 1;
+mission_dzai_heli_array set [count mission_dzai_heli_array, [_helicopter, _unitGroup, 0]];
+```
+
 =============
 <h5>List of Planned Changes</h5>
 Random chance of mission sites calling Patroling AI Heli for Help

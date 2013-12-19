@@ -88,22 +88,25 @@ mission_spawn_crash = {
     _spawn_ammo = true;
 	waitUntil{
 		sleep 15;
-		/*
-		if (_paradrop) then {
-			_isNear = [_crate_position, 100] call mission_nearbyPlayers;
+		if ((_spawn_ammo) || (_heli_reinforcements) || (_paradrop)) then {
+			_isNear = [_position, 100] call mission_nearbyPlayers;
 			if (_isNear) then {
-				// Paradrop
-				_group_5_info = [(_mission_id + "-AIGroup5"), "AI_LAND", _position, 300, 6, -1] call mission_spawn_ai;
-				_paradrop = false;
+				if (_spawn_ammo) then {
+					{
+						[_x, "Random"] execVM "\z\addons\dayz_server\addons\missions\misc\fillBoxes.sqf";
+						sleep 1;
+					} forEach _crates;
+					_spawn_ammo = false;
+				};
+				if (_paradrop) then {
+					//_group_4_info = [(_mission_id + "-AIGroup4"), "AI_LAND", _position, 300, 6, -1] call mission_spawn_ai;
+					_paradrop = false;
+				};
+				if (_heli_reinforcements) then {
+					[_position] call mission_heli_call_check;
+					_heli_reinforcements = false;
+				};
 			};
-		};
-		*/
-		if (_spawn_ammo) then {
-			{
-				[_x, "Random"] execVM "\z\addons\dayz_server\addons\missions\misc\fillBoxes.sqf";
-				sleep 1;
-			} forEach _crates;
-			_spawn_ammo = false;
 		};
 		if ((count units _group_1 == 0) && (count units _group_2 == 0) && (count units _group_3 == 0) && (count units _group_4 == 0)) exitWith {true};
 		if (time > _timeout) exitWith {true};
@@ -118,7 +121,7 @@ mission_spawn_crash = {
 	while {_isNear} do
 	{
 		
-		_isNear = [_crate_position, 500] call mission_nearbyPlayers;
+		_isNear = [_position, 500] call mission_nearbyPlayers;
 		if ((!_isNear) && (time > _timeout)) then {
 			_isNear = false;
 		};
