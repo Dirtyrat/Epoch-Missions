@@ -25,15 +25,15 @@ mission_spawn_crash = {
 
 	// SPAWN AI
 	// Inital Group 200 metre range, 1 sniper, 4 riflemen
-	_group_1_info = [(_mission_id + "-AIGroup1"), "AI", _position, 200, 6, 1] call mission_spawn_ai;
+	_group_1_info = [(_mission_id + "-AIGroup1"), "AI", _position, 100, 6, 1] call mission_spawn_ai;
 	_group_1 = _group_1_info select 1;
 	
 	// Second Group 80 metre range, 1 sniper, 4 riflemen
-	_group_2_info = [(_mission_id + "-AIGroup2"), "AI", _position, 80, 4, 2] call mission_spawn_ai;
+	_group_2_info = [(_mission_id + "-AIGroup2"), "AI", _position, 50, 4, 2] call mission_spawn_ai;
 	_group_2 = _group_2_info select 1;
 	
 	// Third Group 80 metre range, 1 sniper, 4 riflemen
-	_group_3_info = [(_mission_id + "-AIGroup3"), "AI_HELI", _position, 650, 6, 0] call mission_spawn_ai;
+	_group_3_info = [(_mission_id + "-AIGroup3"), "AI_HELI", _position, 200, 6, 0] call mission_spawn_ai;
 	_group_3 = _group_3_info select 1;
 	
 	// Fourth Group
@@ -48,7 +48,7 @@ mission_spawn_crash = {
         
         case (_chance <= 2):
         {
-			_group_4_info = [(_mission_id + "-AIGroup4"), "AI_HELI", _position, 650, 6, 0] call mission_spawn_ai;
+			_group_4_info = [(_mission_id + "-AIGroup4"), "AI_HELI", _position, 300, 6, 0] call mission_spawn_ai;
 			_group_4 = _group_4_info select 1;
 			//[_group4] call mission_kill_vehicle_group;
         };
@@ -69,7 +69,7 @@ mission_spawn_crash = {
         
         default
         {
-			_group_4_info = [(_mission_id + "-AIGroup4"), "AI", _position, 200, 4, 1] call mission_spawn_ai;
+			_group_4_info = [(_mission_id + "-AIGroup4"), "AI", _position, 300, 4, 1] call mission_spawn_ai;
 			_group_4 = _group_4_info select 1;
         };
     };
