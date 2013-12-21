@@ -123,10 +123,11 @@ mpmission\extras\debug_monitor
 Look @ mpmission\extras\debug_monitor\debug_monitor.sqf
 
 The important variables for the debug monitor are
-customMission added to the debug text...
-%1 = customMissionImage
-%2 = "extras\debug_monitor\pirates.paa"
-
+```
+  customMission added to the debug text...
+  %1 = customMissionImage
+  %2 = "extras\debug_monitor\pirates.paa"
+```
 
 Edit addons\Missions\init.sqf
 Remove the line (this is the line that spawns the supplied debug monitor code)
