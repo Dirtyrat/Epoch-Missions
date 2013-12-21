@@ -43,13 +43,6 @@
 					<French>Appuyez sur F10 pour passer!</French>
 					<Russian>Нажмите F10 для переключения!</Russian>
 				</Key>
-				<Key ID="STR_custom_combatlogger">
-					<Original>Has combat logged</Original>
-					<English>Has combat logged</English>
-					<German>Hat Kampf eingeloggt</German>
-					<French>A combat connecté</French>
-					<Russian>Вышел в бою</Russian>
-				</Key>
 				<Key ID="STR_custom_5minRestart">
 					<Original>Server Restart in 5 minutes</Original>
 					<English>Server Restart in 5 minutes</English>
