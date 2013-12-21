@@ -7,7 +7,14 @@
 mission_fps_check = 10;
 // Min Number of Players before mission will spawn
 mission_player_check = 1;
+
 // Mission Debug Monitor
+// 	  To use your own debug monitor add the variables customMission to your debug monitor formated text
+//    		Your first variable =  customMissionImage
+//			Your second variable = "extras\debug_monitor\pirates.paa"
+//		Look @ the supplied debug monitor to see how its done.
+//
+//	  If u dont like the debug monitor  set to false, it will display text warnings in the middle of the screen.
 mission_warning_debug = true;
 
 
