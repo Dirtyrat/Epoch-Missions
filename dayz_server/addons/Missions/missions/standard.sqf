@@ -224,17 +224,17 @@ mission_spawn_standard = {
 
 	// Kill All AI + Triggers
 	{
-		_x setDamage 1;
+		[_x,_x] call DZAI_unitDeath;
 	} forEach units _group_1;
 	deletevehicle (_group_1_info select 0);
 	
 	{
-		_x setDamage 1;
+		[_x,_x] call DZAI_unitDeath;
 	} forEach units _group_2;
 	deletevehicle (_group_2_info select 0);
 	
 	{
-		_x setDamage 1;
+		[_x,_x] call DZAI_unitDeath;
 	} forEach units _group_3;
 	deletevehicle (_group_3_info select 0);
 	
