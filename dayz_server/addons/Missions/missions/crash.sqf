@@ -165,4 +165,6 @@ mission_spawn_crash = {
 		[_x,_x] call DZAI_unitDeath;
 	} forEach units _group_4;
 	deletevehicle (_group_4_info select 0);
+	
+	DZAI_actTrigs = (DZAI_actTrigs - 1);
 };

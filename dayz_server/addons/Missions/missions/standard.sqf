@@ -238,4 +238,5 @@ mission_spawn_standard = {
 	} forEach units _group_3;
 	deletevehicle (_group_3_info select 0);
 	
+	DZAI_actTrigs = (DZAI_actTrigs - 1);
 };
